@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">To the Castle</string>
+    <string name="health_bar">HP</string>
+    <string name="main_menu_button">Main Menu</string>
+    <string name="damage_bar">DMG</string>
+    <string name="attack_button">Attack</string>
+    <string name="next_room_button">Next room</string>
+</resources>
