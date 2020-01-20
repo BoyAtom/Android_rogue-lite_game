@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -18,7 +19,6 @@ import androidx.constraintlayout.widget.Constraints;
 
 public class mainMenuCode extends AppCompatActivity {
     ImageView LocationView;
-    Button StartButton;
     int width;
     int height;
 

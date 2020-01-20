@@ -5,4 +5,5 @@
     <string name="damage_bar">DMG</string>
     <string name="attack_button">Attack</string>
     <string name="next_room_button">Next room</string>
+    <string name="level">Level</string>
 </resources>

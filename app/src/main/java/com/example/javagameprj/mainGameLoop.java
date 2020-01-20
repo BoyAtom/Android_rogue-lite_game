@@ -17,10 +17,11 @@ public class mainGameLoop extends AppCompatActivity {
     public Button AttackButton; public Button NextRoomButton; public Button RestartButton;
     public TextView HPView; public TextView DMGView;
     public TextView EnemyHPView; public TextView EnemyDMGView;
+    public TextView LevelView;
     public ImageView LocationView; public ImageView EnemyView;
     public mainHero hero = new mainHero(100, 5);
     public Enemy enemy = new Enemy();
-    public int level, loc;
+    public int level, loc, cycle;
 
     //the output of all data
     public void output () {
@@ -36,13 +37,16 @@ public class mainGameLoop extends AppCompatActivity {
         this.DMGView.setText(hero.DMG + " :Your DMG");
         this.EnemyHPView.setText("Enemy HP: " + enemy.HP);
         this.EnemyDMGView.setText(enemy.DMG + " :Enemy DMG");
+        this.LevelView.setText("Level " + this.level + "\nCycle " + (this.cycle - 1));
     }
 
     //attack button
     @SuppressLint("SetTextI18n")
     public void attackOnClick(View view) {
+        this.output();
         this.enemy.attack(hero);
         this.hero.attack(enemy, EnemyView);
+        this.hero.die(AttackButton, NextRoomButton);
         this.output();
     }
 
@@ -55,7 +59,11 @@ public class mainGameLoop extends AppCompatActivity {
         this.enemy.DMG = 0;
         this.level = 1;
         this.loc = 1;
+        this.cycle = 1;
+        this.AttackButton.setClickable(true);
+        this.NextRoomButton.setClickable(true);
         this.EnemyView.setImageDrawable(null);
+        this.AttackButton.setClickable(true);
         Intent intent = new Intent(mainGameLoop.this, mainMenuCode.class);
         startActivity(intent);
         this.output();
@@ -64,6 +72,8 @@ public class mainGameLoop extends AppCompatActivity {
     //next room button
     @SuppressLint("SetTextI18n")
     public void nextRoomOnClick(View view) {
+        this.level += 1;
+        this.output();
         int rnd = 1 + (int) (Math.random() * 2);
         if (this.level > 0 && this.level <= 20 && this.loc == 1) {
             this.LocationView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.forest));
@@ -84,8 +94,8 @@ public class mainGameLoop extends AppCompatActivity {
         }
         else if (rnd == 1) {
             this.EnemyView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.slimy));
-            this.enemy.HP = 20;
-            this.enemy.DMG = 2;
+            this.enemy.HP = 20 * this.cycle;
+            this.enemy.DMG = 2 * this.cycle;
         }
         else if (rnd == 2) {
             int Rnd = 1 + (int) (Math.random() * 3);
@@ -94,19 +104,20 @@ public class mainGameLoop extends AppCompatActivity {
             }
             else if (Rnd == 2) {
                 this.EnemyView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.hpup));
-                this.hero.HP += 10;
+                this.hero.HP += 10 * this.cycle;
             }
             else if (Rnd == 3) {
                 this.EnemyView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.chest));
-                this.hero.DMG += 1;
+                this.hero.DMG += 1 * this.cycle;
             }
             this.enemy.HP = 0;
             this.enemy.DMG = 0;
         }
-        this.level += 1;
         if (this.level == 61) {
             this.level = 1;
+            this.cycle += 1;
         }
+        this.LevelView.setText("Level " + this.level + "\n" + "Cycle " + (this.cycle));
         this.output();
     }
 
@@ -124,9 +135,11 @@ public class mainGameLoop extends AppCompatActivity {
         this.EnemyView = findViewById(R.id.enemyView);
         this.AttackButton = findViewById(R.id.attackButton);
         this.NextRoomButton = findViewById(R.id.nextRoomButton);
+        this.LevelView = findViewById(R.id.levelView);
         this.level = 1;
+        this.cycle = 1;
 
-        //enemy stats (just testing)
+        //enemy stats
         this.enemy.DMG = 0;
         this.enemy.HP = 0;
 
