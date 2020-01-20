@@ -33,6 +33,10 @@ public class mainGameLoop extends AppCompatActivity {
             this.NextRoomButton.setClickable(false);
             this.AttackButton.setClickable(true);
         }
+        if (this.hero.HP <= 0) {
+            this.NextRoomButton.setClickable(false);
+            this.AttackButton.setClickable(false);
+        }
         this.HPView.setText("Your HP: " + hero.HP);
         this.DMGView.setText(hero.DMG + " :Your DMG");
         this.EnemyHPView.setText("Enemy HP: " + enemy.HP);
@@ -89,8 +93,8 @@ public class mainGameLoop extends AppCompatActivity {
         }
         if (this.level == 20 || this.level == 40 || this.level == 60) {
             this.EnemyView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.slimy_king));
-            this.enemy.HP = 80;
-            this.enemy.DMG = 5;
+            this.enemy.HP = 80 * this.cycle;
+            this.enemy.DMG = 5 * this.cycle;
         }
         else if (rnd == 1) {
             this.EnemyView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.slimy));
