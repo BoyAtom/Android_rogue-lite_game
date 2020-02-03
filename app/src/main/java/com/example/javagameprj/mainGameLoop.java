@@ -1,11 +1,16 @@
 package com.example.javagameprj;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +23,8 @@ public class mainGameLoop extends AppCompatActivity {
     public TextView HPView; public TextView DMGView;
     public TextView EnemyHPView; public TextView EnemyDMGView;
     public TextView LevelView;
-    public ImageView LocationView; public ImageView EnemyView;
+    public ImageView LocationView; public ImageView EnemyView; public ImageView attackAnimation;
+    public AnimationDrawable AttackAnim;
     public mainHero hero = new mainHero(100, 5);
     public Enemy enemy = new Enemy();
     public int level, loc, cycle;
@@ -51,6 +57,9 @@ public class mainGameLoop extends AppCompatActivity {
         this.enemy.attack(hero);
         this.hero.attack(enemy, EnemyView);
         this.hero.die(AttackButton, NextRoomButton);
+        this.AttackAnim.stop();
+        this.AttackAnim.selectDrawable(0);
+        this.AttackAnim.start();
         this.output();
     }
 
@@ -112,7 +121,7 @@ public class mainGameLoop extends AppCompatActivity {
             }
             else if (Rnd == 3) {
                 this.EnemyView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.chest));
-                this.hero.DMG += 1 * this.cycle;
+                this.hero.DMG += this.cycle;
             }
             this.enemy.HP = 0;
             this.enemy.DMG = 0;
@@ -140,6 +149,7 @@ public class mainGameLoop extends AppCompatActivity {
         this.AttackButton = findViewById(R.id.attackButton);
         this.NextRoomButton = findViewById(R.id.nextRoomButton);
         this.LevelView = findViewById(R.id.levelView);
+        this.attackAnimation = findViewById(R.id.attackAnimation);
         this.level = 1;
         this.cycle = 1;
 
@@ -148,6 +158,8 @@ public class mainGameLoop extends AppCompatActivity {
         this.enemy.HP = 0;
 
         //start output all stats
+        this.attackAnimation.setBackgroundResource(R.drawable.attack);
+        this.AttackAnim = (AnimationDrawable) this.attackAnimation.getBackground();
         this.output();
     }
 }

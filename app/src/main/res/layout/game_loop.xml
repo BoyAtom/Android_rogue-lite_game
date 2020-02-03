@@ -10,8 +10,9 @@
 
     <ImageView
         android:id="@+id/locationView"
-        android:layout_width="1920px"
-        android:layout_height="1920px"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +127,6 @@
         android:id="@+id/enemyView"
         android:layout_width="256px"
         android:layout_height="256px"
-        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -142,5 +142,15 @@
         app:layout_constraintEnd_toStartOf="@+id/EnemyDMGView"
         app:layout_constraintStart_toEndOf="@+id/EnemyHPView"
         app:layout_constraintTop_toBottomOf="@+id/restartButton" />
+
+    <ImageView
+        android:id="@+id/attackAnimation"
+        android:layout_width="256px"
+        android:layout_height="256px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/locationView"
+        app:layout_constraintTop_toTopOf="@+id/locationView"
+        app:srcCompat="@drawable/attack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
